@@ -1,0 +1,56 @@
+=> React Hooks Rules
+1) you must import hooks from react.
+2) hooks can only be called inside React function components.
+3) hooks can only be called at the top level of a component.
+4) hooks cannot be conditional.
+
+(1) useState hook :-  it returns a array of two element state variable and updated function . 
+
+syntax:- const [count , setCount]  = useState(0);
+here count is a state varible , setCount is updated function, 0 is initial value of a state variable.
+
+(2) useEffect hook :- callback function=> we write side effect code , [] array dependancy(optional)
+syntax :-  useEffect(()=>{},[]) adding empty depandancy -> run only on first render
+syntax :-  useEffect(()=>{}) no depandancy passed -> runs on every render
+syntax :-  useEffect(()=>{},[props , state]) props or state values -> runs on the first render , and any time any depandancy value changes.
+
+(3) context api :- its a solution of prop driling. here globally data manage(store) and directly any child component use it without the help  of any parent component.
+here 3 things 
+-> createContext  => syntax :- const AppContext = createContext();
+-> Provider => syntax :-  <AppContext.Provider value={userData}>{children}</AppContext.Provider>
+-> consumer => useContext hook// it's a very lengthy process, thats why we use useContext to overcome it.   
+
+syntax:- const useGlobalContext = () => {
+         return useContext(AppContext);
+        };
+         export { AppContext, AppProvider, useGlobalContext };
+
+-> import in child component and use it =>  const userData = useGlobalContext();
+-> children is nothing its our react App.
+-> userData is globally data that we want to use it in our App(child component).
+
+(4) useReducer hook:- it uses to manage the state and its similar to useState hook. useState hook genrally used in small appication. but useReducers hook use for complex and big application.
+syntaxt:- const [state , dispatch] = useReducer(reducer,initial_value)
+
+reducer -> reducer is a function that  accept it two parameter state and action .
+state -> its a state variable that contain the value of state or (initial_value) .
+dispatch-> its a update function to perform any action to call it. it trigger the  action method of reducer then play with state and what action want to perform and return state.
+
+(5) useRef hook:- -> it create a mutable variable which will not re-render the components
+-> Used to access the DOM element directly
+-> always return object with the property of current
+syntax:- const count = useRef(0);
+
+(6) useLayoutEffect:- useLayoutEffect, runs synchronously after a render but before
+ the screen is updated.
+
+-> useEffect runs asynchronously and after a render is painted to the screen.
+-> useLayoutEffect and useEffect me se pehle uselayoutEffect run hoga
+syntax :- useLayoutEffect(() => {}, []);
+
+(7) useMemo:- used to improve  the performance of react application . return a memozied value.
+syntax:- const varName = useMemo(() => {}, []);
+
+(8) useCallback :- return a memozied function.
+Memoization:-  is an optimization feature in React which , when used in the right place , increases the performance of the program. 
+syntax :- const functionName = useCallback(()=>{,[]})
